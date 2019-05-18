@@ -10,22 +10,22 @@
         {% for image in images %}
             <div class="card">
                 <div class="mb-2">
-                    <img src="{{ image.img.url }}" class="rounded-circle article-img" alt="...">
+                    <img src="{{ image.poster.profile.image.url }}" class="rounded-circle article-img" alt="...">
                     <div class="article-metadata">
-                        <a class="mr-2" href="#">username</a>
-                        <small class="text-muted">Date posted</small>
+                        <a class="mr-2" href="#">{{ image.poster }}</a>
+                        <small class="text-muted">{{ image.date_posted|date:"F d, Y" }}</small>
                     </div>
                 </div>
                 <img src="{{ image.img.url }}" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <h5 class="card-title">{{image.img_name}}</h5>
+                    <p class="card-text" href="#" >{{image.img_caption}}</p>
+                    <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">deatil</a>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     <a class="mr-2" href="#"><i class="fas fa-comment-alt"></i></a> 
                     <a class="mr-2" href="#"><i class="fas fa-heart"></i><small>100</small></a> 
                     <a class="mr-2" href="#"><i class="fas fa-heart-broken"></i><small>100</small></a> 
                     <a class="mr-2" href="#"><i class="fas fa-copy"></i></a>
-                    <p><button>Contact</button></p>
                 </div>
             </div>
         {% endfor %}
