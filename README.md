@@ -63,7 +63,7 @@ You may follow this [document](https://gist.github.com/newtonkiragu/42f2500e56d9
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/badruu/gallery/blob/master/license) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/badruu/gallery/blob/master/license) file for details
 
 ## Acknowledgments
 
