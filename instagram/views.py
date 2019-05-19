@@ -64,6 +64,18 @@ class ImageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):  #th
             return True
         return False
 
+def search_results(request):
+
+    if 'image' in request.GET and request.GET["image"]:
+        search_term = request.GET.get("image")
+        searched_images = Image.search_by_img_name(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'instagram/search.html',{"message":message,"images": searched_images})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'instagram/search.html',{"message":message})
 
 def about(request):
     return render(request, 'instagram/about.html')
