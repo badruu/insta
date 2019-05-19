@@ -14,6 +14,7 @@ urlpatterns=[
     url(r'^about/', views.about, name = 'instagram-about'),
     url(r'^post/(?P<pk>\d+)/update/',ImageUpdateView.as_view(), name='image-update'),
     url(r'^post/(?P<pk>\d+)/delete/',ImageDeleteView.as_view(), name='image-delete'),
+    url(r'^search/', views.search_results, name='search_results')
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
