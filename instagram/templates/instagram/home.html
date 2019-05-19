@@ -18,7 +18,7 @@
                 </div>
                 <img src="{{ image.img.url }}" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">{{image.img_name}}</h5>
+                    <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">{{image.img_name}}</a>
                     <p class="card-text" href="#" >{{image.img_caption}}</p>
                     <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">deatil</a>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
@@ -35,6 +35,13 @@
 
         
     <div class="col-md-4">
+        <div id= "small-profile" class="mb-2">
+            <img src="{{ user.profile.image.url }}" class="rounded-circle article-img" alt="...">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'profile' %}">{{ user.username }}</a><br>
+                <small class="text-muted">{{ user.email }}</small>
+            </div>
+        </div>
         <div class="content-section">
             <div class="jumbotron">
                 <h1 class="display-4">Hello, world!</h1>
