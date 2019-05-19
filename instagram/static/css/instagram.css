@@ -27,11 +27,7 @@ button {
 
 }
   
-a {
-    text-decoration: none;
-    font-size: 22px;
-    color: black;
-}
+
 button:hover, a:hover {
     opacity: 0.7;
 }
@@ -50,9 +46,10 @@ button:hover, a:hover {
     width: 65px;
     margin-right: 16px;
     float: left;
+    padding-bottom: 5px;
 }
 .article-metadata {
-    padding-bottom: 1px;
+    padding-bottom: 10px;
     margin-bottom: 4px;
     border-bottom: 1px solid #e3e3e3
 }
@@ -68,7 +65,7 @@ button:hover, a:hover {
 }
 small
 {
-    color: #333
+    color: rgb(41, 39, 39)
 }
 body {
     background: #fafafa;
@@ -85,7 +82,22 @@ ul {
 }
   
 .bg-steel {
-    background-color: #dbdbdb;
+    background-color:#D4D4D4;
+}
+#gram
+{
+    font-family: 'Cookie', cursive;
+    color: #000;
+    font-size: 30px;
+}
+.site-header
+{
+    padding-bottom: 60px;
+}
+a {
+    text-decoration: none;
+    font-size: 15px;
+    color: black;
 }
 .content-section {
     background: #ffffff;
@@ -93,4 +105,35 @@ ul {
     border: 1px solid #dddddd;
     border-radius: 3px;
     margin-bottom: 20px;
+}
+#small-profile
+{
+    padding: 10px;
+}
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+.account-heading {
+    font-size: 2.5rem;
+}
+.nav-item{
+    font-family: 'Special Elite', cursive;
+    /* font-family: 'Cute Font', cursive; */
+    /* font-family: 'Indie Flower', cursive; */
+    /* font-family: 'Macondo Swash Caps', cursive; */
+    /* font-family: 'Lobster', cursive; */
+    /* font-family: 'Pacifico', cursive; */
+    /* font-family: 'Vollkorn', serif; */
+    /* font-family: 'Gloria Hallelujah', cursive; */
+    /* font-family: 'Cormorant Garamond', serif; */
+    /* font-family: 'Cookie', cursive; */
+    /* font-family: 'Special Elite', cursive; */
+}
+#search
+{
+    border: 1px solid #02241956;
+    border-radius: 100px;
 }
