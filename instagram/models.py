@@ -14,6 +14,11 @@ class Image(models.Model):
     def __str__(self):
         return self.img_name
 
+    @classmethod
+    def search_by_img_name(cls,search_term):
+        photo = cls.objects.filter(img_name__icontains=search_term)
+        return photo
+
     def get_absolute_url(self):
         return reverse('image-detail', kwargs={'pk': self.pk})
 
