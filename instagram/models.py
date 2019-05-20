@@ -24,3 +24,14 @@ class Image(models.Model):
 
     #solves for me the error 'improperly configured' with suggestion
     #No URL to redirect to.  Either provide a url or define a get_absolute_url method on the Model.
+
+class Comment(models.Model):
+    comment = models.TextField()
+    commentor = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_commented = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.comment
+
+    def get_absolute_url(self):
+        return reverse('image-detail', kwargs={'pk': self.pk})
