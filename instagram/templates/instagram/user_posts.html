@@ -2,22 +2,39 @@
 
 
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
     <h1 class="mb-3">
         Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})
     </h1>
     {% for image in images %}
-        <article class="media content-section">
-            <img class="rounded-circle article-img" src="{{ image.poster.profile.image.url }}">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-                    <small class="text-muted">{{ image.date_posted|date:"F d, Y" }}</small>
-                </div>
-                <h2><a class="article-title" href="{% url 'image-detail' post.id %}">{{ image.img_name}}</a></h2>
-                <p class="article-content">{{ image.img_caption }}</p>
+    <div class="card">
+        <div class="mb-2">
+            <img src="{{ image.poster.profile.image.url }}" class="rounded-circle article-img" alt="...">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'user-posts' image.poster.username %}">{{ image.poster }}</a>
+                <small class="text-muted">{{ image.date_posted|date:"F d, Y" }}</small>
             </div>
+        </div>
+        <img src="{{ image.img.url }}" class="card-img-top">
+        <div class="card-body">
+            <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">{{image.img_name}}</a>
+            <p class="card-text" href="#" >{{image.img_caption}}</p>
+            <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">deatil</a>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <a class="mr-2" href="#"><i class="fas fa-comment-alt"></i></a> 
+            <a class="mr-2" href="#"><i class="fas fa-heart"></i><small>100</small></a> 
+            <a class="mr-2" href="#"><i class="fas fa-heart-broken"></i><small>100</small></a> 
+            <a class="mr-2" href="#"><i class="fas fa-copy"></i></a>
+        </div>
+    </div>
         </article>
     {% endfor %}
+    </div>
+    </div>
+    </div>
     {% if is_paginated %}
 
         {% if page_obj.has_previous %}
