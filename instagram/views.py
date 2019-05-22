@@ -1,9 +1,13 @@
-from django.shortcuts import render,get_object_or_404
-from.models import Image, Comment
+from django.shortcuts import render,get_object_or_404,redirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from.models import Image, Comment, ImageVote
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.views import generic
+from django.db.models import F
 
 
 def home(request):
@@ -17,6 +21,54 @@ class ImageListView(LoginRequiredMixin, ListView):
     template_name = 'instagram/home.html' 
     context_object_name = 'images'
     ordering = ['-date_posted']
+
+def image_up_vote (request, pk):
+    image = get_object_or_404(Image, pk=pk)
+    try:
+        if request.method == 'GET':
+            if image.poster == request.user:
+                messages.error(request, 'You cannot vote on a post you have created!')
+                return redirect('image-detail', pk=image.pk)
+
+            if ImageVote.objects.filter(voter=request.user, voted=image).exists():
+                messages.danger(request, 'You already Liked this Post. Double votes are not allowed.')
+                return redirect('image-detail', pk=image.pk)
+            else:
+                image.up_vote =F('up_vote') + 1
+                image.save()
+                ImageVote.objects.create(voter=request.user, voted=image)
+                messages.success(request, 'You have successfully Provided an Up-Vote for this Post.')
+                return redirect('image-detail', pk=image.pk)
+        # else:
+        #     messages.error(request, 'Something went wrong, please try again.')
+        #     return redirect('image-detail', pk=image.pk)
+    except:
+        messages.error(request, 'Something went wrong, please try again.')
+        return redirect('image-detail', pk=image.pk)
+
+def image_down_vote (request, pk):
+    image = get_object_or_404(Image, pk=pk)
+    try:
+        if request.method == 'GET':
+            if image.poster == request.user:
+                messages.info(request, 'You cannot vote on a post you have created!' )
+                return redirect('image-detail', pk=image.pk)
+
+            if ImageVote.objects.filter(voter=request.user, voted=image).exists():
+                messages.info(request, 'You already disliked this Post. Double votes are not allowed!')
+                return redirect('image-detail', pk=image.pk)
+            else:
+                image.down_vote =F('down_vote') + 1
+                image.save()
+                ImageVote.objects.create(voter=request.user, voted=image)
+                messages.success(request, 'You have successfully Provided an Down Vote for this Post.')
+                return redirect('image-detail', pk=image.pk)
+        # else:
+        #     messages.error(request, 'Something went wrong, please try again.')
+        #     return redirect('image-detail', pk=image.pk)
+    except:
+        messages.danger(request, 'Something went wrong, please try again.')
+        return redirect('image-detail', pk=image.pk)
 
 class UserImageListView(LoginRequiredMixin, ListView):
     model = Image
