@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -9,6 +10,8 @@ class Image(models.Model):
     img_caption = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     poster = models.ForeignKey(User, on_delete=models.CASCADE)
+    up_vote = models.IntegerField(default=0)
+    down_vote = models.IntegerField(default=0)
 
 
     def __str__(self):
@@ -22,8 +25,35 @@ class Image(models.Model):
     def get_absolute_url(self):
         return reverse('image-detail', kwargs={'pk': self.pk})
 
+    # def was_published_recently(self):
+    #     return self.date_posted >= timezone.now() - datetime.timedelta(days=1)
+
     #solves for me the error 'improperly configured' with suggestion
     #No URL to redirect to.  Either provide a url or define a get_absolute_url method on the Model.
+
+class ImageVote(models.Model):
+
+    voter = models.ForeignKey(User, on_delete=models.CASCADE)
+    voted = models.ForeignKey(Image, on_delete=models.CASCADE)
+    published_date = models.DateField(auto_now_add=True, null=True)
+
+    class Meta:
+        unique_together = ('voter', 'voted')
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.voter
+
+# class Choice(models.Model):
+#     image = models.ForeignKey(Image, on_delete=models.CASCADE)
+#     choice_text = models.CharField(max_length=200)
+#     votes = models.IntegerField(default=0)
+
+#     def __str__(self):
+#         return self.choice_text
 
 class Comment(models.Model):
     comment = models.TextField()
