@@ -1,7 +1,5 @@
 {%extends 'instagram/base.html'%}
 {% load static %}
-
-
 {% block content %}
 <div class="container">
 <div class="row">
@@ -25,10 +23,11 @@
                 <div class="card-body">
                     <h5 class="card-title">{{object.img_name}}</h5>
                     <p class="card-text">{{object.img_caption}}</p>
+                    <a href="{% url 'image_up_vote' pk=image.pk %}"><i class="btn success fa fa-thumbs-up"></i></a>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     <a class="mr-2" href="#"><i class="fas fa-comment-alt"></i></a> 
-                    <a class="mr-2" href="#"><i class="fas fa-heart"></i><small>100</small></a> 
-                    <a class="mr-2" href="#"><i class="fas fa-heart-broken"></i><small>100</small></a> 
+                    <a class="mr-2" href="{% url 'image_up_vote' pk=image.pk %}"><i class="fas fa-heart"></i><small></small>{{object.up_vote}}</a> 
+                    <a class="mr-2" href="{% url 'image_down_vote' pk=image.pk %}"><i class="fas fa-heart-broken"></i><small>{{object.down_vote}}</small></a> 
                     <a class="mr-2" href="#"><i class="fas fa-copy"></i></a>
                 </div>
                 <div>
