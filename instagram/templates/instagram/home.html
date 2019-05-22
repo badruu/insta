@@ -20,11 +20,11 @@
                 <div class="card-body">
                     <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">{{image.img_name}}</a>
                     <p class="card-text" href="#" >{{image.img_caption}}</p>
-                    <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">deatil</a>
+                    <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">Detail</a>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     <a class="mr-2" href="#"><i class="fas fa-comment-alt"></i></a> 
-                    <a class="mr-2" href="#"><i class="fas fa-heart"></i><small>100</small></a> 
-                    <a class="mr-2" href="#"><i class="fas fa-heart-broken"></i><small>100</small></a> 
+                    <a class="mr-2" href="{% url 'image_up_vote' pk=image.pk %}"><i class="fas fa-heart"></i><small>{{image.up_vote}}</small></a> 
+                    <a class="mr-2" href="{% url 'image_down_vote' pk=image.pk %}"><i class="fas fa-heart-broken"></i><small>{{image.down_vote}}</small></a> 
                     <a class="mr-2" href="#"><i class="fas fa-copy"></i></a>
                 </div>
             </div>
