@@ -27,11 +27,11 @@ def image_up_vote (request, pk):
     try:
         if request.method == 'GET':
             if image.poster == request.user:
-                messages.error(request, 'You cannot vote on a post you have created!')
+                messages.warning(request, 'You cannot vote on a post you have created!')
                 return redirect('image-detail', pk=image.pk)
 
             if ImageVote.objects.filter(voter=request.user, voted=image).exists():
-                messages.danger(request, 'You already Liked this Post. Double votes are not allowed.')
+                messages.warning(request, 'You already Liked this Post. Double votes are not allowed.')
                 return redirect('image-detail', pk=image.pk)
             else:
                 image.up_vote =F('up_vote') + 1
@@ -43,7 +43,7 @@ def image_up_vote (request, pk):
         #     messages.error(request, 'Something went wrong, please try again.')
         #     return redirect('image-detail', pk=image.pk)
     except:
-        messages.error(request, 'Something went wrong, please try again.')
+        messages.warning(request, 'Something went wrong, please try again.')
         return redirect('image-detail', pk=image.pk)
 
 def image_down_vote (request, pk):
@@ -51,7 +51,7 @@ def image_down_vote (request, pk):
     try:
         if request.method == 'GET':
             if image.poster == request.user:
-                messages.info(request, 'You cannot vote on a post you have created!' )
+                messages.warning(request, 'You cannot vote on a post you have created!' )
                 return redirect('image-detail', pk=image.pk)
 
             if ImageVote.objects.filter(voter=request.user, voted=image).exists():
@@ -67,7 +67,7 @@ def image_down_vote (request, pk):
         #     messages.error(request, 'Something went wrong, please try again.')
         #     return redirect('image-detail', pk=image.pk)
     except:
-        messages.danger(request, 'Something went wrong, please try again.')
+        messages.warning(request, 'Something went wrong, please try again.')
         return redirect('image-detail', pk=image.pk)
 
 class UserImageListView(LoginRequiredMixin, ListView):
