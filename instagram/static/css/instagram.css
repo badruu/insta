@@ -137,3 +137,13 @@ a {
     border: 1px solid #02241956;
     border-radius: 100px;
 }
+#scrollable{
+    background-color: #D2D8DD;
+    width: 4000px;
+    height: 430px;
+    overflow: scroll;
+    padding-left: 10px;
+}
+#com{
+    text-align: center;
+}
