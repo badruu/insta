@@ -36,6 +36,8 @@ MODE=config("MODE", default="dev")
 # Application definition
 
 INSTALLED_APPS = [
+    'django_comments',
+    'django.contrib.sites',
     'users.apps.UsersConfig',
     'crispy_forms',
     'django_cleanup',
@@ -79,6 +81,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'insta.wsgi.application'
 
+
+# defining a site
+SITE_ID = 1
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
