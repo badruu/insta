@@ -7,24 +7,24 @@
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-5">
-        {% for image in images %}
+        {% for object in object_list %}
             <div class="card">
                 <div class="mb-2">
-                    <img src="{{ image.poster.profile.image.url }}" class="rounded-circle article-img" alt="...">
+                    <img src="{{ object.poster.profile.image.url }}" class="rounded-circle article-img" alt="...">
                     <div class="article-metadata">
-                        <a class="mr-2" href="{% url 'user-posts' image.poster.username %}">{{ image.poster }}</a>
-                        <small class="text-muted">{{ image.date_posted|date:"F d, Y" }}</small>
+                        <a class="mr-2" href="#">{{object.poster }}</a>
+                        <small class="text-muted">{{object.timestamp|date:"F d, Y" }}</small>
                     </div>
                 </div>
-                <img src="{{ image.img.url }}" class="card-img-top">
+                <img src="{{object.img.url }}" class="card-img-top">
                 <div class="card-body">
-                    <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">{{image.img_name}}</a>
-                    <p class="card-text" href="#" >{{image.img_caption}}</p>
-                    <a class="nav-item nav-link" href="{% url 'image-detail' image.pk %}">Detail</a>
+                    <a class="nav-item nav-link" href="{% url 'image-detail' object.pk %}">{{object.img_name}}</a>
+                    <p class="card-text" href="#" >{{object.img_caption}}</p>
+                    <a class="nav-item nav-link" href="{% url 'image-detail' object.pk %}">Detail</a>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     <a class="mr-2" href="#"><i class="fas fa-comment-alt"></i></a> 
-                    <a class="mr-2" href="{% url 'image_up_vote' pk=image.pk %}"><i class="fas fa-heart"></i><small>{{image.up_vote}}</small></a> 
-                    <a class="mr-2" href="{% url 'image_down_vote' pk=image.pk %}"><i class="fas fa-heart-broken"></i><small>{{image.down_vote}}</small></a> 
+                    <a class="mr-2" href="{% url 'image_up_vote' pk=object.pk %}"><i class="fas fa-heart"></i><small>{{object.up_vote}}</small></a> 
+                    <a class="mr-2" href="{% url 'image_down_vote' pk=object.pk %}"><i class="fas fa-heart-broken"></i><small>{{object.down_vote}}</small></a> 
                     <a class="mr-2" href="#"><i class="fas fa-copy"></i></a>
                 </div>
             </div>
@@ -42,15 +42,19 @@
                 <small class="text-muted">{{ user.email }}</small>
             </div>
         </div>
-        <div class="content-section">
+        <!-- <div class="content-section">
             <div class="jumbotron">
+                    {% for object in object_list %}
+                    <img src="{{ object.profile.image.url }}" class="rounded-circle article-img" alt="...">
+                        <h1>{{object.profile.username}}</h1>
+                    {% endfor %}
                 <h1 class="display-4">Hello, world!</h1>
                 <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
                 <hr class="my-4">
                 <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
                 <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 </div>

@@ -1,0 +1,12 @@
+{%extends 'instagram/base.html'%}
+{% load static %}
+{% block content %}
+<h1>
+        new
+    </h1>
+    <!-- <p>{{profile.user}}</p> -->
+    {% for profile in profiles %}
+    <img src="{{ profile.image.url }}" class="rounded-circle article-img" alt="...">
+        <h1>{{profile.user}}</h1>
+    {% endfor %}
+{% endblock content %}

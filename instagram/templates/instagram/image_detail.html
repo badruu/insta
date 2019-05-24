@@ -1,5 +1,7 @@
 {%extends 'instagram/base.html'%}
 {% load static %}
+{% load comments %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
 <div class="row">
@@ -10,7 +12,7 @@
                     <img src="{{ object.poster.profile.image.url }}" class="rounded-circle article-img" alt="...">
                     <div class="article-metadata">
                         <a class="mr-2" href="{% url 'user-posts' object.poster.username %}">{{object.poster}}</a>
-                        <small class="text-muted">{{object.date_posted|date:"F d, Y"}}</small>
+                        <small class="text-muted">{{object.timestamp|date:"F d, Y"}}</small>
                         {% if object.poster == user %}
                             <div>
                                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'image-update' object.id %}">Update</a>
@@ -25,34 +27,39 @@
                     <p class="card-text">{{object.img_caption}}</p>
                     <a href="{% url 'image_up_vote' pk=image.pk %}"><i class="btn success fa fa-thumbs-up"></i></a>
                     <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    <a class="mr-2" href="#"><i class="fas fa-comment-alt"></i></a> 
+                    {% get_comment_count for image as comment_count %}
+                    <a class="mr-2" href="#"><i class="fas fa-comment-alt">{{ comment_count }}</i></a> 
                     <a class="mr-2" href="{% url 'image_up_vote' pk=image.pk %}"><i class="fas fa-heart"></i><small></small>{{object.up_vote}}</a> 
                     <a class="mr-2" href="{% url 'image_down_vote' pk=image.pk %}"><i class="fas fa-heart-broken"></i><small>{{object.down_vote}}</small></a> 
                     <a class="mr-2" href="#"><i class="fas fa-copy"></i></a>
                 </div>
-                <div>
-                    <p>
-                        {{object.comment}}
-                    </p>
-                </div>
             </div>
     </div>
-    <div class="col-md-2"></div>
-
-
-        
-    <!-- <div class="col-md-4">
-        <div class="content-section">
-            <div class="jumbotron">
-                <h1 class="display-4">Hello, world!</h1>
-                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <hr class="my-4">
-                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <div class="container">
+            <div class="row">
+                <div id="scrollable" class="article-metadata">
+                    <!-- {% render_comment_list for object %} -->
+                    <h2 id="com">Comments</h2>
+                    {% get_comment_list for object as comment_list %}
+                    {% for comment in comment_list %}
+                    <div>
+                        <h4 class="mr-2" id="list-item-1">{{ comment.user_name }}</h4>
+                        <small class="text-muted">{{ comment.submit_date|date:"F d, Y" }}</small>
+                        <p>{{ comment.comment }}</p><hr>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div> -->
+
+    </div>
+    <div>
+        {% render_comment_form for object %}
+    </div>
 </div>
 </div>
+
 
 {% endblock content %}

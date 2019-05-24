@@ -15,7 +15,7 @@
             <img src="{{ image.poster.profile.image.url }}" class="rounded-circle article-img" alt="...">
             <div class="article-metadata">
                 <a class="mr-2" href="{% url 'user-posts' image.poster.username %}">{{ image.poster }}</a>
-                <small class="text-muted">{{ image.date_posted|date:"F d, Y" }}</small>
+                <small class="text-muted">{{ image.timestamp|date:"F d, Y" }}</small>
             </div>
         </div>
         <img src="{{ image.img.url }}" class="card-img-top">

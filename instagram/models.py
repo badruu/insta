@@ -8,7 +8,7 @@ class Image(models.Model):
     img = models.ImageField(default='leopard.jpg', upload_to='images')
     img_name = models.CharField(default='My Photo', max_length = 30)
     img_caption = models.TextField()
-    date_posted = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(default=timezone.now)
     poster = models.ForeignKey(User, on_delete=models.CASCADE)
     up_vote = models.IntegerField(default=0)
     down_vote = models.IntegerField(default=0)

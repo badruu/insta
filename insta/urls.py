@@ -19,7 +19,7 @@ from users import views as user_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from users.views import ProfileDetailView
+# from users.views import ProfileListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'), name='password_reset_done'),
     url(r'password-reset-confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     url(r'password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
-    url(r'^user/(?P<pk>\d+)/',ProfileDetailView.as_view(), name='profile-detail'),
+    url(r'^users/', user_views.profilelist, name='profile-list'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

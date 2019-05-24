@@ -8,6 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views import generic
 from django.db.models import F
+from users.models import Profile
+from itertools import chain
+from operator import attrgetter
 
 
 def home(request):
@@ -19,8 +22,20 @@ def home(request):
 class ImageListView(LoginRequiredMixin, ListView):
     model = Image
     template_name = 'instagram/home.html' 
-    context_object_name = 'images'
-    ordering = ['-date_posted']
+    # context_object_name = 'images'
+    ordering = ['-timestamp']
+
+    # def get_queryset(self):
+    #     qs1 = Image.objects.all()
+    #     qs2 = Profile.objects.all()
+    #     queryset = sorted(chain(qs1,qs2),key=attrgetter('timestamp'),)
+    #     return queryset
+
+    # def get_queryset(self):
+    #     return Profile.objects.all()
+    # def get_queryset(self):
+    #     user = get_object_or_404(User, username=self.kwargs.get('username'))
+    #     return Image.objects.filter(poster=user).order_by('-date_posted')
 
 def image_up_vote (request, pk):
     image = get_object_or_404(Image, pk=pk)
@@ -74,12 +89,12 @@ class UserImageListView(LoginRequiredMixin, ListView):
     model = Image
     template_name = 'instagram/user_posts.html'
     context_object_name = 'images'
-    ordering = ['-date_posted']
+    ordering = ['-timestamp']
     paginate_by = 5
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Image.objects.filter(poster=user).order_by('-date_posted')
+        return Image.objects.filter(poster=user).order_by('-timestamp')
 
 class ImageDetailView(LoginRequiredMixin, DetailView):
     model = Image
